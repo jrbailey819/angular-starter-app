@@ -3,16 +3,22 @@ import { provideMockActions } from '@ngrx/effects/testing';
 import { Observable } from 'rxjs';
 
 import { ArtistEffects } from './artist.effects';
+import { ArtistApiService } from 'src/app/services/artist-api.service';
 
 describe('ArtistEffects', () => {
   let actions$: Observable<any>;
   let effects: ArtistEffects;
 
+  const mockArtistApiService = {
+    getArtists: () => []
+  }
+
   beforeEach(() => {
     TestBed.configureTestingModule({
       providers: [
         ArtistEffects,
-        provideMockActions(() => actions$)
+        provideMockActions(() => actions$),
+        { provide: ArtistApiService, useValue: mockArtistApiService }
       ]
     });
 

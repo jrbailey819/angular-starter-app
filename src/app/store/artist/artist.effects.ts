@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { catchError, map, concatMap } from 'rxjs/operators';
-import { Observable, EMPTY, of } from 'rxjs';
+import { of } from 'rxjs';
 import { ArtistActions } from './artist.actions';
-import { Artist } from './models/artist';
+import { ArtistApiService } from '../../services/artist-api.service';
 
 
 @Injectable()
@@ -14,11 +14,17 @@ export class ArtistEffects {
 
       ofType(ArtistActions.loadArtists),
       concatMap(() =>
-        of(ArtistActions.loadArtistsSuccess({ data: [{ id: 1, name: 'Bono'} as Artist]}))
+        this.artistApiService.getArtists().pipe(
+          map(data => ArtistActions.loadArtistsSuccess({ data })),
+          catchError(err => of(ArtistActions.loadArtistsFailure(err)))
+        )
       )
     );
   });
 
 
-  constructor(private actions$: Actions) {}
+  constructor(
+    private actions$: Actions,
+    private artistApiService: ArtistApiService
+  ) {}
 }
