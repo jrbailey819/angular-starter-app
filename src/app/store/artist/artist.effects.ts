@@ -11,8 +11,7 @@ export class ArtistEffects {
 
   loadArtists$ = createEffect(() => {
     return this.actions$.pipe(
-
-      ofType(ArtistActions.loadArtists),
+      ofType(ArtistActions.loadArtists, ArtistActions.addArtistSuccess),
       concatMap(() =>
         this.artistApiService.getArtists().pipe(
           map(data => ArtistActions.loadArtistsSuccess({ data })),
@@ -22,6 +21,17 @@ export class ArtistEffects {
     );
   });
 
+  addArtist$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(ArtistActions.addArtist),
+      concatMap(payload =>
+        this.artistApiService.createArtist(payload.data).pipe(
+          map(data => ArtistActions.addArtistSuccess({ data })),
+          catchError(err => of(ArtistActions.addArtistFailure(err)))
+        )
+      )
+    );
+  });
 
   constructor(
     private actions$: Actions,
