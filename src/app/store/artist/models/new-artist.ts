@@ -1,3 +1,6 @@
+import { Album } from "./album";
+
 export interface NewArtist {
-  name: string
+  name: string,
+  albums: Album[]
 }

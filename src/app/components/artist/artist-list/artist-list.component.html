@@ -1,4 +1,8 @@
 <p>Artists</p>
 <ul>
-  <li *ngFor="let artist of (artists() ?? [])">{{artist.name}}</li>
+  <li *ngFor="let artist of (artists() ?? [])">{{artist.name}}
+    <ul *ngIf="artist.albums?.length">
+      <li *ngFor="let album of artist.albums">{{album.name}} - {{album.releaseYear}}</li>
+    </ul>
+  </li>
 </ul>

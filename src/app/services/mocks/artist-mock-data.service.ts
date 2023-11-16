@@ -8,9 +8,13 @@ import { Artist } from 'src/app/store/artist/models/artist';
 export class ArtistMockDataService implements InMemoryDbService {
   createDb() {
     const artists = [
-      { id: 1, name: 'The Beatles' },
-      { id: 2, name: 'Pink Floyd' }
-    ];
+      { id: 1, name: 'The Beatles', albums: [
+        { name: 'Abbey Road', releaseYear: 1969 }
+      ] },
+      { id: 2, name: 'Pink Floyd', albums: [
+        { name: 'Which You Were Here', releaseYear: 1975 }
+      ] }
+    ] as Artist[];
 
     return { artists };
   }

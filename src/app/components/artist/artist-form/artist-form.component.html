@@ -1,5 +1,16 @@
 <form [formGroup]="artistForm" (ngSubmit)="onSubmit()">
   <label for="name">Name: </label>
   <input id="name" type="text" formControlName="name">
+  <p>Albums</p>
+  <div formArrayName="albums">
+    <div *ngFor="let albums of artistForm.controls.albums.controls; let i=index" [formGroupName]="i">
+      <label for="albumName{{i}}">Name: </label>
+      <input id="albumName{{i}}" type="text" formControlName="name">
+      <label for="releaseYear{{i}}">Release Year: </label>
+      <input id="releaseYear{{i}}" type="text" formControlName="releaseYear">
+    </div>
+    <button type="button" (click)="addAlbum()">Add Album</button>
+  </div>
+
   <button type="submit">Add</button>
 </form>
