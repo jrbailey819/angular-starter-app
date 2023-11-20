@@ -12,5 +12,6 @@
     <button type="button" (click)="addAlbum()">Add Album</button>
   </div>
 
+  <span *ngIf="hasError(artistForm.get('name'), 'required')">Name is required</span>
   <button type="submit">Add</button>
 </form>

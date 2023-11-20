@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormArray, FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
+import { AbstractControl, FormArray, FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { ArtistActions } from 'src/app/store/artist/artist.actions';
 import { NewArtist } from 'src/app/store/artist/models/new-artist';
@@ -38,5 +38,9 @@ export class ArtistFormComponent {
       name: ['', Validators.required ],
       releaseYear: ['', [Validators.required, Validators.pattern('[0-9]{4}')]]
     }))
+  }
+
+  hasError<T>(control: AbstractControl<T | null, T | null> | null, errorName: string) {
+    return control?.hasError(errorName) && (control?.dirty || control?.touched);
   }
 }
