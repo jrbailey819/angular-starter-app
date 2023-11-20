@@ -3,11 +3,14 @@
   <input id="name" type="text" formControlName="name">
   <p>Albums</p>
   <div formArrayName="albums">
-    <div *ngFor="let albums of artistForm.controls.albums.controls; let i=index" [formGroupName]="i">
+    <div *ngFor="let albumForm of artistForm.controls.albums.controls; let i=index" [formGroupName]="i">
       <label for="albumName{{i}}">Name: </label>
       <input id="albumName{{i}}" type="text" formControlName="name">
+      <span *ngIf="hasError(albumForm.get('name'), 'required')">Name is required</span>
       <label for="releaseYear{{i}}">Release Year: </label>
       <input id="releaseYear{{i}}" type="text" formControlName="releaseYear">
+      <span *ngIf="hasError(albumForm.get('releaseYear'), 'required')">Name is required</span>
+      <span *ngIf="hasError(albumForm.get('releaseYear'), 'pattern', true)">Enter year in YYYY format</span>
     </div>
     <button type="button" (click)="addAlbum()">Add Album</button>
   </div>

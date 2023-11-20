@@ -40,7 +40,7 @@ export class ArtistFormComponent {
     }))
   }
 
-  hasError<T>(control: AbstractControl<T | null, T | null> | null, errorName: string) {
-    return control?.hasError(errorName) && (control?.dirty || control?.touched);
+  hasError<T>(control: AbstractControl<T | null, T | null> | null, errorName: string, touchedOnly = false) {
+    return control?.hasError(errorName) && ((control?.dirty && !touchedOnly) || control?.touched);
   }
 }
