@@ -1,5 +1,6 @@
 <form [formGroup]="artistForm" (ngSubmit)="onSubmit()">
   <label for="name">Name: </label>
   <input id="name" type="text" formControlName="name">
+  <span *ngIf="hasError(artistForm.get('name'), 'required')">Name is required</span>
   <button type="submit">Add</button>
 </form>

@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { ArtistActions } from 'src/app/store/artist/artist.actions';
 import { NewArtist } from 'src/app/store/artist/models/new-artist';
@@ -30,5 +30,9 @@ export class ArtistFormComponent {
     } as NewArtist;
     this.store.dispatch(ArtistActions.addArtist({ data: newArtist }))
     this.artistForm.reset();
+  }
+
+  hasError<T>(control: AbstractControl<T | null, T | null> | null, errorName: string) {
+    return control?.hasError(errorName) && (control?.dirty || control?.touched);
   }
 }
